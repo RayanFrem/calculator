@@ -102,32 +102,16 @@ document.getElementById('backspace').addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', (e) => {
-
-    if (['+', '-', '*', '/', '=', 'Enter', 'Backspace', 'Escape', '.'].includes(e.key)) {
-        e.preventDefault();
-    }
-
+    e.preventDefault();
     if ((e.key >= '0' && e.key <= '9') || e.key === '.') {
-        let digitButtons = document.querySelectorAll('.digit');
-        for (let btn of digitButtons) {
-            if (btn.textContent === e.key) {
-                btn.click();
-                return;
-            }
-        }
+        clickButtonByDataKey(e.key);
     }
 
     if (['+', '-', '*', '/'].includes(e.key)) {
-        let operatorButtons = document.querySelectorAll('.operator');
-        for (let btn of operatorButtons) {
-            if (btn.textContent === e.key) {
-                btn.click();
-                return;
-            }
-        }
+        clickButtonByDataKey(e.key);
     }
 
-    if (e.key === 'Enter' || e.key === '=') {
+    if (e.key === '=' || e.key === 'Enter') {
         document.getElementById('equals').click();
     }
 
@@ -139,3 +123,10 @@ document.addEventListener('keydown', (e) => {
         document.getElementById('clear').click();
     }
 });
+
+function clickButtonByDataKey(key) {
+    let button = document.querySelector(`button[data-key="${key}"]`);
+    if (button) {
+        button.click();
+    }
+}
