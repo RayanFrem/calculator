@@ -84,3 +84,34 @@ document.getElementById('clear').addEventListener('click', () => {
 function updateDisplay(value) {
     document.getElementById('display').textContent = value;
 }
+
+document.querySelector('.digit').addEventListener('click', (e) => {
+    if (e.target.textContent === '.' && (currentOperator && secondNumber.includes('.') || !currentOperator && firstNumber.includes('.'))) {
+        return;
+    }
+});
+
+document.getElementById('backspace').addEventListener('click', () => {
+    if (currentOperator) {
+        secondNumber = secondNumber.slice(0, -1);
+        updateDisplay(secondNumber);
+    } else {
+        firstNumber = firstNumber.slice(0, -1);
+        updateDisplay(firstNumber);
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if ((e.key >= '0' && e.key <= '9') || e.key === '.') {
+        document.querySelector(`button.digit:contains('${e.key}')`).click();
+    } else if (['+', '-', '*', '/'].includes(e.key)) {
+        document.querySelector(`button.operator:contains('${e.key}')`).click();
+    } else if (e.key === 'Enter' || e.key === '=') {
+        document.getElementById('equals').click();
+    } else if (e.key === 'Backspace') {
+        document.getElementById('backspace').click();
+    } else if (e.key === 'Escape') {
+        document.getElementById('clear').click();
+    }
+    e.preventDefault(); 
+});

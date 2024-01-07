@@ -29,3 +29,11 @@ button.operator, button#equals {
 button#clear {
     color: red;
 }
+
+button.operator {
+    background-color: lightblue;
+}
+
+button#backspace {
+    background-color: lightcoral;
+}
