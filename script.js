@@ -102,16 +102,40 @@ document.getElementById('backspace').addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', (e) => {
+
+    if (['+', '-', '*', '/', '=', 'Enter', 'Backspace', 'Escape', '.'].includes(e.key)) {
+        e.preventDefault();
+    }
+
     if ((e.key >= '0' && e.key <= '9') || e.key === '.') {
-        document.querySelector(`button.digit:contains('${e.key}')`).click();
-    } else if (['+', '-', '*', '/'].includes(e.key)) {
-        document.querySelector(`button.operator:contains('${e.key}')`).click();
-    } else if (e.key === 'Enter' || e.key === '=') {
+        let digitButtons = document.querySelectorAll('.digit');
+        for (let btn of digitButtons) {
+            if (btn.textContent === e.key) {
+                btn.click();
+                return;
+            }
+        }
+    }
+
+    if (['+', '-', '*', '/'].includes(e.key)) {
+        let operatorButtons = document.querySelectorAll('.operator');
+        for (let btn of operatorButtons) {
+            if (btn.textContent === e.key) {
+                btn.click();
+                return;
+            }
+        }
+    }
+
+    if (e.key === 'Enter' || e.key === '=') {
         document.getElementById('equals').click();
-    } else if (e.key === 'Backspace') {
+    }
+
+    if (e.key === 'Backspace') {
         document.getElementById('backspace').click();
-    } else if (e.key === 'Escape') {
+    }
+
+    if (e.key === 'Escape') {
         document.getElementById('clear').click();
     }
-    e.preventDefault(); 
 });
